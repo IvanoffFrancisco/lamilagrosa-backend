@@ -1,0 +1,21 @@
+{
+  "name": "lamilagrosa-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "type":"module",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mariadb": "^3.0.0",
+    "nodemon": "^2.0.19",
+    "sequelize": "^6.21.2"
+  }
+}
