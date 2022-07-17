@@ -1,23 +1,27 @@
-import {DataTypes} from 'sequelize';
-import {conexion} from '../database/conexionDB.js';
-
-
-export const Usuario=conexion.define("usuario",{
-    id_usuario:{
-        type:DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    usuario:{
-        type: DataTypes.STRING
-    },
-    contraseña:{
-        type: DataTypes.STRING,
-    },
-    email:{
-        type: DataTypes.STRING,
-    },
-    direccion:{
-        type: DataTypes.STRING,
-    }
+const {Schema,model}=require('mongoose');
+const bcrypt=require('bcryptjs');
+const SchemaUsuario=new Schema({
+        user:{
+            type:String
+        },
+        email:{
+            type:String,
+            required:true
+        },
+        password:String,
+        direcciones:[{
+            calle:{type:String,required:true,unique:false}
+        }]
 })
+
+SchemaUsuario.methods.encryptPassword = async (password) => {
+    const salt = await bcrypt.genSalt(10);
+    return bcrypt.hash(password, salt);
+};
+
+SchemaUsuario.methods.comparePassword = function (password) {
+    return bcrypt.compare(password,this.password);
+};
+
+
+module.exports=model("usuario",SchemaUsuario);
