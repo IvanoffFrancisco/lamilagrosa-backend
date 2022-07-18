@@ -9,16 +9,15 @@ UsuarioMethods.login=async (req,res)=>{
     const user=await Usuario.findOne({email:email});
     if(!user){
         res.status(400).json({"advertencia":"email y/o password incorrectos"});
-    }
-    const verificar=await user.comparePassword(password);
-
-    if(!verificar){
-
-        res.status(400).json({"advertencia":"email y/o password incorrectos"});
     }else{
-        const token=await jwt.sign({id:user._id},process.env.MYSECRET);
-        res.json({"token":token,user:user.user,id:user._id,direcciones:user.direcciones,email:user.email});
+        if(user.password!==password){
+            res.status(400).json({"advertencia":"email y/o password incorrectos"});
+        }else{
+            const token=await jwt.sign({id:user._id},process.env.MYSECRET);
+            res.json({"token":token,user:user.user,id:user._id,direcciones:user.direcciones,email:user.email});
+        }
     }
+    
 }
 UsuarioMethods.registro= async (req,res)=>{
     try {
@@ -30,7 +29,7 @@ UsuarioMethods.registro= async (req,res)=>{
             email:email,
             password:password,
         })
-        usuario.password=await usuario.encryptPassword(password);
+        
         await usuario.save();
 
         await Usuario.updateOne({_id:usuario._id},
