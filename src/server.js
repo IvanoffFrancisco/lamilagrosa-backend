@@ -1,7 +1,10 @@
 const express=require('express');
 const app=express();
 const cors = require('cors');
-const UsuarioRoute=require('./routes/UsuarioRoute.js');
+const UsuarioRoute=require('./routes/UsuarioRoute');
+const ComidaRoute=require('./routes/ComidaRoute');
+
+
 //configuraciones
 app.set("PORT",process.env.PORT || 4000);
 
@@ -20,6 +23,8 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
+//rutas
 app.use("/api",UsuarioRoute);
+app.use('/api',ComidaRoute);
 
 module.exports=app;

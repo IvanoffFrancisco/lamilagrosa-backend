@@ -13,7 +13,7 @@ UsuarioMethods.login=async (req,res)=>{
         if(user.password!==password){
             res.status(400).json({"advertencia":"email y/o password incorrectos"});
         }else{
-            const token=await jwt.sign({id:user._id},process.env.MYSECRET);
+            const token=await jwt.sign({id:user._id,isAdmin:user.isAdmin},process.env.MYSECRET);
             res.json({"token":token,user:user.user,id:user._id,direcciones:user.direcciones,email:user.email});
         }
     }
@@ -22,12 +22,13 @@ UsuarioMethods.login=async (req,res)=>{
 UsuarioMethods.registro= async (req,res)=>{
     try {
 
-        const {user,email,password,direcciones}=req.body;
+        const {user,email,password,direcciones,isAdmin=false}=req.body;
 
         const usuario=new Usuario({
             user:user,
             email:email,
             password:password,
+            isAdmin:isAdmin
         })
         
         await usuario.save();
