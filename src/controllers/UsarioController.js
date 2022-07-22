@@ -3,6 +3,39 @@ const UsuarioMethods={}
 const Usuario=require('../models/Usuario');
 const jwt=require('jsonwebtoken');
 
+// metodo para buscar un usuario
+// se creo este metodo para verificar que no exista otro usuario igual
+UsuarioMethods.getUser=async(req,res)=>{
+    try {
+        const buscarUser=await Usuario.find({user:req.body.user});
+        if(buscarUser.length===1){
+            res.json({user:"ocupado"});
+        }else{
+            res.json({user:"disponible"});
+        }
+        
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+// metodo para buscar un email
+// se creo este metodo para verificar que no exista otro email igual
+UsuarioMethods.getEmail=async(req,res)=>{
+    try {
+        const buscarEmail=await Usuario.find({email:req.body.email});
+        if(buscarEmail.length===1){
+            res.json({email:"ocupado"});
+        }else{
+            res.json({email:"disponible"});
+        }
+        
+    } catch (error) {
+        console.log(error);
+    }
+
+}
 
 UsuarioMethods.login=async (req,res)=>{
     const {email,password}=req.body;
