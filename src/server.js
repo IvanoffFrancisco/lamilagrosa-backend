@@ -3,6 +3,7 @@ const app=express();
 const cors = require('cors');
 const UsuarioRoute=require('./routes/UsuarioRoute');
 const ComidaRoute=require('./routes/ComidaRoute');
+const GuarnicionRoute=require('./routes/GuarnicionRoute');
 
 
 //configuraciones
@@ -24,7 +25,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 //rutas
-app.use("/api",UsuarioRoute);
+app.get("/getUsuario",(req,res)=>{
+    res.send('hola');
+})
+app.use('/api',UsuarioRoute);
 app.use('/api',ComidaRoute);
+app.use('/api',GuarnicionRoute);
 
 module.exports=app;

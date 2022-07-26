@@ -11,9 +11,11 @@ ComidaMethods.getComida=async(req,res)=>{
 
 // buscar Comida por id
 ComidaMethods.buscarComidaId=async(req,res)=>{
-    try {
+    
+    try { 
         const data= await Comida.findById({_id:req.params.id});
-        res.json(data);
+        res.json(data)
+        
     } catch (error) {
         console.log(error);
     }

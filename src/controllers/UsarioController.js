@@ -91,4 +91,7 @@ UsuarioMethods.eliminarUsuario=(req,res)=>{
     res.send("eliminar");
 }
 
+
+
 module.exports=UsuarioMethods;
+
