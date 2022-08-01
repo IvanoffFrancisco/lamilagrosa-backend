@@ -4,8 +4,21 @@ const Guarnicion=require('../models/Guarnicion');
 
 // get Guarniciones
 GuarnicionMethods.getGuarnicion=async(req,res)=>{
-    const data=await Guarnicion.find();
-    res.json(data);
+    try {
+        const data=await Guarnicion.find();
+        res.json(data);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+GuarnicionMethods.obtenerGuarnicionId=async (req,res)=>{
+    try {
+        const data=await Guarnicion.findOne({_id:req.params.id});
+        res.json(data)
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 GuarnicionMethods.nuevaGuarnicion=async(req,res)=>{
