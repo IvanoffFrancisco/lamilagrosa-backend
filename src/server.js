@@ -4,6 +4,7 @@ const cors = require('cors');
 const UsuarioRoute=require('./routes/UsuarioRoute');
 const ComidaRoute=require('./routes/ComidaRoute');
 const GuarnicionRoute=require('./routes/GuarnicionRoute');
+const VentaRoute=require('./routes/VentaRoute');
 
 
 //configuraciones
@@ -31,5 +32,6 @@ app.get("/getUsuario",(req,res)=>{
 app.use('/api',UsuarioRoute);
 app.use('/api',ComidaRoute);
 app.use('/api',GuarnicionRoute);
+app.use('/api/',VentaRoute);
 
 module.exports=app;
